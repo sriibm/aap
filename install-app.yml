@@ -1,0 +1,17 @@
+---
+- name: Install an application on RHEL
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Ensure the application is installed
+      yum:
+        name: "{{ app_name }}"
+        state: present
+      when: app_name != ""
+      register: install_result
+
+    - name: Print installation result
+      debug:
+        msg: "{{ install_result }}"
+      when: app_name != ""
